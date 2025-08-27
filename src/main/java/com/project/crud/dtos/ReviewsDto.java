@@ -1,21 +1,16 @@
-package com.project.crud.entities;
+package com.project.crud.dtos;
 
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
 
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Builder
 @Setter
-public class Reviews {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer reviewId;
-    private Integer userId;
+public class ReviewsDto {
+    private String username;
     private String isbn;
     private String description;
     private Integer stars;
