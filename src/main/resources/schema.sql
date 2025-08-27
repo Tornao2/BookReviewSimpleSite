@@ -10,7 +10,8 @@ CREATE TABLE Users (
   UserID INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   username text,
   password text,
-  readBooksNumber smallint
+  readBooksNumber smallint,
+  isAdmin boolean
 );
 
 CREATE TABLE Books (
@@ -19,16 +20,16 @@ CREATE TABLE Books (
   publisherName text,
   pageNumber smallint,
   language text,
-  description text,
-  yearOfRelease smallint
+  yearOfRelease smallint,
+  description text
 );
 
 CREATE TABLE Reviews (
   ReviewID bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   UserID INTEGER,
   ISBN varchar(13),
-  description text,
   stars smallint,
+  description text,
   creationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (ISBN) REFERENCES Books(ISBN),
   FOREIGN KEY (UserID)  REFERENCES Users(UserID)

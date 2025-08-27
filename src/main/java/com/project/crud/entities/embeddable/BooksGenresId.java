@@ -11,6 +11,7 @@ import java.io.Serializable;
 @Getter
 @Builder
 @Setter
+@EqualsAndHashCode
 public class BooksGenresId implements Serializable {
     private String isbn;
     private Integer genreId;

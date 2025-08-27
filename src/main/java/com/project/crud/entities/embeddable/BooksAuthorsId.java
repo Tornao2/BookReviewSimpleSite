@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Getter
 @Builder
 @Setter
+@EqualsAndHashCode
 public class BooksAuthorsId implements Serializable {
     private String isbn;
     private Integer authorId;

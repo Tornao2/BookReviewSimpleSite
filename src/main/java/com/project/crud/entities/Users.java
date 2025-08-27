@@ -19,4 +19,5 @@ public class Users {
     private String username;
     private String password;
     private Integer readBooksNumber;
+    private Boolean isAdmin;
 }
