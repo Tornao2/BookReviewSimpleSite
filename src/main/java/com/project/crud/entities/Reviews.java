@@ -19,5 +19,5 @@ public class Reviews {
     private String isbn;
     private String description;
     private Integer stars;
-    private Date creationDate;
+    private Date changeDate;
 }

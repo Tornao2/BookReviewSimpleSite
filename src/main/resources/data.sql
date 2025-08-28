@@ -11,7 +11,7 @@ Insert into books values
 ('9780140439908', 'De Profundis and Other Writings', 'Penguin Books Ltd', 256, 'English', 2013,
 'A collection of Oscar Wilde’s reflections, including his long prison letter De Profundis, where he writes about suffering, love, art, and spiritual growth.');
 
-Insert into reviews (UserID, ISBN, stars, description, creationDate) values
+Insert into reviews (UserID, ISBN, stars, description, changeDate) values
 (1, '9781784871710', 3, 'Pretty average', '2025-08-27 14:30:00'),
 (1, '9780140439908', 2, 'Could barely finish', '2025-08-27 15:30:00'),
 (2, '9781784871710', 4, 'Bit better than average', '2025-08-27 16:30:00'),

@@ -30,7 +30,7 @@ CREATE TABLE Reviews (
   ISBN varchar(13),
   stars smallint,
   description text,
-  creationDate TIMESTAMP,
+  changeDate TIMESTAMP,
   FOREIGN KEY (ISBN) REFERENCES Books(ISBN),
   FOREIGN KEY (UserID)  REFERENCES Users(UserID)
 );

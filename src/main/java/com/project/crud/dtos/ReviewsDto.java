@@ -11,8 +11,8 @@ import java.util.Date;
 @Setter
 public class ReviewsDto {
     private String username;
-    private String isbn;
+    private String bookTitle;
     private String description;
     private Integer stars;
-    private Date creationDate;
+    private Date changeDate;
 }

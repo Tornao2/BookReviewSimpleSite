@@ -8,5 +8,5 @@ import lombok.*;
 @Builder
 @Setter
 public class GenresDto {
-    private String name;
+    private String title;
 }
