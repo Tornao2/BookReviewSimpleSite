@@ -19,7 +19,7 @@ public class UsersService {
         this.UsersMapper = UsersUsersMapper;
     }
 
-    public List<UsersDto> getAllUsersAuthors(){
+    public List<UsersDto> getAllUsers(){
         return StreamSupport.stream(UsersRepository.findAll().spliterator(), false).
                 map(UsersMapper::toDto).collect(Collectors.toList());
     }

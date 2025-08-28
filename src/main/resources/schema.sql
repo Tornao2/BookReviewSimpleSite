@@ -26,10 +26,10 @@ CREATE TABLE Books (
 
 CREATE TABLE Reviews (
   ReviewID bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  UserID INTEGER,
+  UserId INTEGER,
   ISBN varchar(13),
-  stars smallint,
   description text,
+  stars smallint,
   changeDate TIMESTAMP,
   FOREIGN KEY (ISBN) REFERENCES Books(ISBN),
   FOREIGN KEY (UserID)  REFERENCES Users(UserID)

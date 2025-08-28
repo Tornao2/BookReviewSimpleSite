@@ -11,16 +11,16 @@ import java.util.stream.StreamSupport;
 
 @Service
 public class ReviewsService {
-    private final ReviewsRepository ReviewsRepository;
-    private final ReviewsMapper ReviewsMapper;
+    private final ReviewsRepository reviewsRepository;
+    private final ReviewsMapper reviewsMapper;
 
-    public ReviewsService(ReviewsRepository ReviewsReviewsRepository, ReviewsMapper ReviewsReviewsMapper) {
-        this.ReviewsRepository = ReviewsReviewsRepository;
-        this.ReviewsMapper = ReviewsReviewsMapper;
+    public ReviewsService(ReviewsRepository reviewsRepository, ReviewsMapper reviewsMapper) {
+        this.reviewsRepository = reviewsRepository;
+        this.reviewsMapper = reviewsMapper;
     }
 
-    public List<ReviewsDto> getAllReviewsAuthors(){
-        return StreamSupport.stream(ReviewsRepository.findAll().spliterator(), false).
-                map(ReviewsMapper::toDto).collect(Collectors.toList());
+    public List<ReviewsDto> getAllReviews(){
+        return StreamSupport.stream(reviewsRepository.findAll().spliterator(), false).
+                map(reviewsMapper::toDto).collect(Collectors.toList());
     }
 }

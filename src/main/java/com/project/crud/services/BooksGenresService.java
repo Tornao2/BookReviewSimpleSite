@@ -19,7 +19,7 @@ public class BooksGenresService {
         this.booksGenresMapper = booksGenresMapper;
     }
 
-    public List<BooksGenresDto> getAllBooksAuthors(){
+    public List<BooksGenresDto> getAllBooksGenres(){
         return StreamSupport.stream(booksGenresRepository.findAll().spliterator(), false).
                 map(booksGenresMapper::toDto).collect(Collectors.toList());
     }
