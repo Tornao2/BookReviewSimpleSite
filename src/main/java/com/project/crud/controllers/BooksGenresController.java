@@ -1,6 +1,5 @@
 package com.project.crud.controllers;
 
-import com.project.crud.dtos.BooksAuthorsDto;
 import com.project.crud.dtos.BooksGenresDto;
 import com.project.crud.services.BooksGenresService;
 import org.springframework.web.bind.annotation.GetMapping;

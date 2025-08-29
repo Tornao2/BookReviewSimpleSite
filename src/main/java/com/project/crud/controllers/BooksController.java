@@ -1,6 +1,5 @@
 package com.project.crud.controllers;
 
-import com.project.crud.dtos.AuthorsDto;
 import com.project.crud.dtos.BooksDto;
 import com.project.crud.services.BooksService;
 import org.springframework.http.HttpStatus;

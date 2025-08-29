@@ -1,6 +1,5 @@
 package com.project.crud.services;
 
-import com.project.crud.dtos.BooksDto;
 import com.project.crud.dtos.GenresDto;
 import com.project.crud.mappers.GenresMapper;
 import com.project.crud.repositories.GenresRepository;

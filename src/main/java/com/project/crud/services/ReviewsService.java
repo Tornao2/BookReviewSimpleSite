@@ -1,6 +1,5 @@
 package com.project.crud.services;
 
-import com.project.crud.dtos.GenresDto;
 import com.project.crud.dtos.ReviewsDto;
 import com.project.crud.mappers.ReviewsMapper;
 import com.project.crud.repositories.ReviewsRepository;
