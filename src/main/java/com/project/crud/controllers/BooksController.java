@@ -4,10 +4,7 @@ import com.project.crud.dtos.BooksDto;
 import com.project.crud.services.BooksService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +29,10 @@ public class BooksController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.ok(returnValue);
+    }
+
+    @DeleteMapping("/{isbn}")
+    public ResponseEntity<Void> deleteBook(@PathVariable String isbn){
+        return ResponseEntity.status(booksService.deleteBook(isbn)).build();
     }
 }
