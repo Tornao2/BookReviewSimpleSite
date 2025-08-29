@@ -1,5 +1,6 @@
 package com.project.crud.services;
 
+import com.project.crud.dtos.BooksDto;
 import com.project.crud.dtos.GenresDto;
 import com.project.crud.mappers.GenresMapper;
 import com.project.crud.repositories.GenresRepository;
@@ -11,16 +12,20 @@ import java.util.stream.StreamSupport;
 
 @Service
 public class GenresService {
-    private final GenresRepository GenresRepository;
-    private final GenresMapper GenresMapper;
+    private final GenresRepository genresRepository;
+    private final GenresMapper genresMapper;
 
-    public GenresService(GenresRepository GenresGenresRepository, GenresMapper GenresGenresMapper) {
-        this.GenresRepository = GenresGenresRepository;
-        this.GenresMapper = GenresGenresMapper;
+    public GenresService(GenresRepository genresRepository, GenresMapper genresMapper) {
+        this.genresRepository = genresRepository;
+        this.genresMapper = genresMapper;
     }
 
     public List<GenresDto> getAllGenres(){
-        return StreamSupport.stream(GenresRepository.findAll().spliterator(), false).
-                map(GenresMapper::toDto).collect(Collectors.toList());
+        return StreamSupport.stream(genresRepository.findAll().spliterator(), false).
+                map(genresMapper::toDto).collect(Collectors.toList());
+    }
+
+    public GenresDto getGenre(Integer id){
+        return genresMapper.toDto(genresRepository.findById(id).orElse(null));
     }
 }

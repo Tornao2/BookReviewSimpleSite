@@ -23,4 +23,8 @@ public class AuthorsService {
         return StreamSupport.stream(authorsRepository.findAll().spliterator(), false).
                 map(authorsMapper::toDto).collect(Collectors.toList());
     }
+
+    public AuthorsDto getAuthor(Integer id){
+        return authorsMapper.toDto(authorsRepository.findById(id).orElse(null));
+    }
 }

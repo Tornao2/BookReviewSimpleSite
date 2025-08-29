@@ -1,5 +1,6 @@
 package com.project.crud.services;
 
+import com.project.crud.dtos.AuthorsDto;
 import com.project.crud.dtos.BooksAuthorsDto;
 import com.project.crud.mappers.BooksAuthorsMapper;
 import com.project.crud.repositories.BooksAuthorsRepository;
@@ -21,6 +22,16 @@ public class BooksAuthorsService {
 
     public List<BooksAuthorsDto> getAllBooksAuthors(){
         return StreamSupport.stream(booksAuthorsRepository.findAll().spliterator(), false).
+                map(booksAuthorsMapper::toDto).collect(Collectors.toList());
+    }
+
+    public List<BooksAuthorsDto> getBooksAuthorsByAuthor(Integer id){
+        return booksAuthorsRepository.findByIdAuthorId(id).stream().
+                map(booksAuthorsMapper::toDto).collect(Collectors.toList());
+    }
+
+    public List<BooksAuthorsDto> getBooksAuthorsByBook(String isbn){
+        return booksAuthorsRepository.findByIdIsbn(isbn).stream().
                 map(booksAuthorsMapper::toDto).collect(Collectors.toList());
     }
 }

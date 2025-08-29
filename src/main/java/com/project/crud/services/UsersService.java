@@ -1,5 +1,6 @@
 package com.project.crud.services;
 
+import com.project.crud.dtos.ReviewsDto;
 import com.project.crud.dtos.UsersDto;
 import com.project.crud.mappers.UsersMapper;
 import com.project.crud.repositories.UsersRepository;
@@ -11,16 +12,20 @@ import java.util.stream.StreamSupport;
 
 @Service
 public class UsersService {
-    private final UsersRepository UsersRepository;
-    private final UsersMapper UsersMapper;
+    private final UsersRepository usersRepository;
+    private final UsersMapper usersMapper;
 
-    public UsersService(UsersRepository UsersUsersRepository, UsersMapper UsersUsersMapper) {
-        this.UsersRepository = UsersUsersRepository;
-        this.UsersMapper = UsersUsersMapper;
+    public UsersService(UsersRepository usersRepository, UsersMapper usersMapper) {
+        this.usersRepository = usersRepository;
+        this.usersMapper = usersMapper;
     }
 
     public List<UsersDto> getAllUsers(){
-        return StreamSupport.stream(UsersRepository.findAll().spliterator(), false).
-                map(UsersMapper::toDto).collect(Collectors.toList());
+        return StreamSupport.stream(usersRepository.findAll().spliterator(), false).
+                map(usersMapper::toDto).collect(Collectors.toList());
+    }
+
+    public UsersDto getUser(Integer id){
+        return usersMapper.toDto(usersRepository.findById(id).orElse(null));
     }
 }

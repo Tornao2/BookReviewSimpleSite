@@ -1,5 +1,6 @@
 package com.project.crud.services;
 
+import com.project.crud.dtos.GenresDto;
 import com.project.crud.dtos.ReviewsDto;
 import com.project.crud.mappers.ReviewsMapper;
 import com.project.crud.repositories.ReviewsRepository;
@@ -22,5 +23,9 @@ public class ReviewsService {
     public List<ReviewsDto> getAllReviews(){
         return StreamSupport.stream(reviewsRepository.findAll().spliterator(), false).
                 map(reviewsMapper::toDto).collect(Collectors.toList());
+    }
+
+    public ReviewsDto getReview(Integer id){
+        return reviewsMapper.toDto(reviewsRepository.findById(id).orElse(null));
     }
 }
