@@ -9,5 +9,5 @@ import lombok.*;
 @Setter
 public class BooksGenresDto {
     private String isbn;
-    private Integer genreId;
+    private String title;
 }

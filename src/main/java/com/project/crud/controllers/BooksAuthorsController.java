@@ -2,10 +2,8 @@ package com.project.crud.controllers;
 
 import com.project.crud.dtos.BooksAuthorsDto;
 import com.project.crud.services.BooksAuthorsService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +29,10 @@ public class BooksAuthorsController {
     @GetMapping("/isbn/{isbn}")
     public List<BooksAuthorsDto> getBooksAuthorsByBook(@PathVariable String isbn) {
         return booksAuthorsService.getBooksAuthorsByBook(isbn);
+    }
+
+    @DeleteMapping("/{isbn}/{id}")
+    public ResponseEntity<Void> deleteBooksAuthors(@PathVariable String isbn, @PathVariable Integer id){
+        return ResponseEntity.status(booksAuthorsService.deleteBooksAuthors(isbn, id)).build();
     }
 }

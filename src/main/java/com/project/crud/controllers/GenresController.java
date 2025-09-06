@@ -22,17 +22,17 @@ public class GenresController {
         return genresService.getAllGenres();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<GenresDto> getGenre(@PathVariable Integer id) {
-        GenresDto returnValue = genresService.getGenre(id);
+    @GetMapping("/{title}")
+    public ResponseEntity<GenresDto> getGenre(@PathVariable String title) {
+        GenresDto returnValue = genresService.getGenre(title);
         if (returnValue == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.ok(returnValue);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGenre(@PathVariable Integer id){
-        return ResponseEntity.status(genresService.deleteGenre(id)).build();
+    @DeleteMapping("/{title}")
+    public ResponseEntity<Void> deleteGenre(@PathVariable String title){
+        return ResponseEntity.status(genresService.deleteGenre(title)).build();
     }
 }

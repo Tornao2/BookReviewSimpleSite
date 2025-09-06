@@ -1,8 +1,10 @@
 package com.project.crud.services;
 
 import com.project.crud.dtos.BooksAuthorsDto;
+import com.project.crud.entities.embeddable.BooksAuthorsId;
 import com.project.crud.mappers.BooksAuthorsMapper;
 import com.project.crud.repositories.BooksAuthorsRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,5 +34,14 @@ public class BooksAuthorsService {
     public List<BooksAuthorsDto> getBooksAuthorsByBook(String isbn){
         return booksAuthorsRepository.findByIdIsbn(isbn).stream().
                 map(booksAuthorsMapper::toDto).collect(Collectors.toList());
+    }
+
+    public HttpStatus deleteBooksAuthors(String isbn, Integer id){
+        BooksAuthorsId embId = new BooksAuthorsId(isbn, id);
+        if (booksAuthorsRepository.findById(embId).isEmpty()){
+            return HttpStatus.NOT_FOUND;
+        }
+        booksAuthorsRepository.deleteById(embId);
+        return HttpStatus.OK;
     }
 }

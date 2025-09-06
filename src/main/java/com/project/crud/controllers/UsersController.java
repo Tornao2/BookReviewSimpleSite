@@ -4,10 +4,7 @@ import com.project.crud.dtos.UsersDto;
 import com.project.crud.services.UsersService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,12 +22,17 @@ public class UsersController {
         return usersService.getAllUsers();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UsersDto> getUser(@PathVariable Integer id) {
-        UsersDto returnValue = usersService.getUser(id);
+    @GetMapping("/{username}")
+    public ResponseEntity<UsersDto> getUser(@PathVariable String username) {
+        UsersDto returnValue = usersService.getUser(username);
         if (returnValue == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.ok(returnValue);
+    }
+
+    @DeleteMapping("/{username}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String username){
+        return ResponseEntity.status(usersService.deleteUser(username)).build();
     }
 }

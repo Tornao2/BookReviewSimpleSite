@@ -2,10 +2,8 @@ package com.project.crud.controllers;
 
 import com.project.crud.dtos.BooksGenresDto;
 import com.project.crud.services.BooksGenresService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,8 +26,13 @@ public class BooksGenresController {
         return booksGenresService.getBooksGenresByBook(isbn);
     }
 
-    @GetMapping("/genreid/{id}")
-    public List<BooksGenresDto> getBooksGenresByGenre(@PathVariable Integer id) {
-        return booksGenresService.getBooksGenresByGenre(id);
+    @GetMapping("/genreid/{title}")
+    public List<BooksGenresDto> getBooksGenresByGenre(@PathVariable String title) {
+        return booksGenresService.getBooksGenresByGenre(title);
+    }
+
+    @DeleteMapping("/{isbn}/{title}")
+    public ResponseEntity<Void> deleteBooksAuthors(@PathVariable String isbn, @PathVariable String title){
+        return ResponseEntity.status(booksGenresService.deleteBooksGenres(isbn, title)).build();
     }
 }

@@ -28,18 +28,18 @@ public class GenresService {
                 map(genresMapper::toDto).collect(Collectors.toList());
     }
 
-    public GenresDto getGenre(Integer id){
-        return genresMapper.toDto(genresRepository.findById(id).orElse(null));
+    public GenresDto getGenre(String title){
+        return genresMapper.toDto(genresRepository.findById(title).orElse(null));
     }
 
-    public HttpStatus deleteGenre(Integer id){
-        if (!booksGenresRepository.findByIdGenreId(id).isEmpty()){
+    public HttpStatus deleteGenre(String title){
+        if (!booksGenresRepository.findByIdTitle(title).isEmpty()){
             return HttpStatus.CONFLICT;
         }
-        if (!genresRepository.existsById(id)){
+        if (!genresRepository.existsById(title)){
             return HttpStatus.NOT_FOUND;
         }
-        genresRepository.deleteById(id);
+        genresRepository.deleteById(title);
         return HttpStatus.OK;
     }
 }

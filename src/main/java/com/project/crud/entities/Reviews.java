@@ -1,5 +1,6 @@
 package com.project.crud.entities;
 
+import com.project.crud.entities.embeddable.ReviewsId;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,11 +13,8 @@ import java.util.Date;
 @Builder
 @Setter
 public class Reviews {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer reviewId;
-    private Integer userId;
-    private String isbn;
+    @EmbeddedId
+    private ReviewsId id;
     private String description;
     private Integer stars;
     private Date changeDate;

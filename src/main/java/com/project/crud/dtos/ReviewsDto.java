@@ -10,7 +10,7 @@ import java.util.Date;
 @Builder
 @Setter
 public class ReviewsDto {
-    private Integer userId;
+    private String username;
     private String isbn;
     private String description;
     private Integer stars;

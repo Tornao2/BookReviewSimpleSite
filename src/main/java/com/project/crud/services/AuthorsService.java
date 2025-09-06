@@ -2,11 +2,9 @@ package com.project.crud.services;
 
 import com.project.crud.dtos.AuthorsDto;
 import com.project.crud.mappers.AuthorsMapper;
-import com.project.crud.mappers.BooksAuthorsMapper;
 import com.project.crud.repositories.AuthorsRepository;
 import com.project.crud.repositories.BooksAuthorsRepository;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

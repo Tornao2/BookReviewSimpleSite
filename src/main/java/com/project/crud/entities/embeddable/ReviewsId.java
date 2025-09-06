@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Builder
 @Setter
 @EqualsAndHashCode
-public class BooksGenresId implements Serializable {
+public class ReviewsId implements Serializable {
+    private String username;
     private String isbn;
-    private String title;
 }

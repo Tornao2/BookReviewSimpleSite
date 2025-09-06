@@ -3,6 +3,7 @@ package com.project.crud.services;
 import com.project.crud.dtos.UsersDto;
 import com.project.crud.mappers.UsersMapper;
 import com.project.crud.repositories.UsersRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +25,15 @@ public class UsersService {
                 map(usersMapper::toDto).collect(Collectors.toList());
     }
 
-    public UsersDto getUser(Integer id){
-        return usersMapper.toDto(usersRepository.findById(id).orElse(null));
+    public UsersDto getUser(String username){
+        return usersMapper.toDto(usersRepository.findById(username).orElse(null));
+    }
+
+    public HttpStatus deleteUser(String username){
+        if (usersRepository.findById(username).isEmpty()){
+            return HttpStatus.NOT_FOUND;
+        }
+        usersRepository.deleteById(username);
+        return HttpStatus.OK;
     }
 }
