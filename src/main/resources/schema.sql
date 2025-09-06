@@ -7,8 +7,7 @@ DROP TABLE IF EXISTS Genres CASCADE;
 DROP TABLE IF EXISTS Authors CASCADE;
 
 CREATE TABLE Users (
-  UserID INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  username text,
+  username text PRIMARY KEY,
   password text,
   readBooksNumber smallint,
   isAdmin boolean
@@ -25,19 +24,18 @@ CREATE TABLE Books (
 );
 
 CREATE TABLE Reviews (
-  ReviewID bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  UserId INTEGER,
+  username text,
   ISBN varchar(13),
   description text,
   stars smallint,
   changeDate TIMESTAMP,
+  PRIMARY KEY(username, ISBN),
   FOREIGN KEY (ISBN) REFERENCES Books(ISBN),
-  FOREIGN KEY (UserID)  REFERENCES Users(UserID)
+  FOREIGN KEY (username)  REFERENCES Users(username)
 );
 
 CREATE TABLE Genres (
-  GenreID INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  title text
+  title text PRIMARY KEY
 );
 
 CREATE TABLE Authors (
@@ -57,8 +55,8 @@ CREATE TABLE BooksAuthors (
 
 CREATE TABLE BooksGenres(
   ISBN varchar(13),
-  GenreID INTEGER,
-  PRIMARY KEY (ISBN, GenreID),
+  title text,
+  PRIMARY KEY (ISBN, title),
   FOREIGN KEY (ISBN) REFERENCES Books(ISBN),
-  FOREIGN KEY (GenreID)  REFERENCES Genres(GenreID)
+  FOREIGN KEY (title)  REFERENCES Genres(title)
 );
