@@ -8,6 +8,7 @@ import lombok.*;
 @Builder
 @Setter
 public class AuthorsDto {
+    private Integer authorId;
     private String name;
     private Integer yearOfBirth;
     private String countryOfBirth;

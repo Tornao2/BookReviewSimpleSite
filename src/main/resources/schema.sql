@@ -39,7 +39,7 @@ CREATE TABLE Genres (
 );
 
 CREATE TABLE Authors (
-  AuthorID INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  authorid integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   name text,
   yearOfBirth smallint,
   countryOfBirth text
@@ -47,10 +47,10 @@ CREATE TABLE Authors (
 
 CREATE TABLE BooksAuthors (
   ISBN varchar(13),
-  AuthorID INTEGER,
-  PRIMARY KEY (ISBN, AuthorID),
+  authorid integer,
+  PRIMARY KEY (ISBN, authorid),
   FOREIGN KEY (ISBN) REFERENCES Books(ISBN),
-  FOREIGN KEY (AuthorID)  REFERENCES Authors(AuthorID)
+  FOREIGN KEY (authorid)  REFERENCES Authors(authorid)
 );
 
 CREATE TABLE BooksGenres(

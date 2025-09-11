@@ -1,10 +1,12 @@
 package com.project.crud.services;
 
 import com.project.crud.dtos.AuthorsDto;
+import com.project.crud.entities.Authors;
 import com.project.crud.mappers.AuthorsMapper;
 import com.project.crud.repositories.AuthorsRepository;
 import com.project.crud.repositories.BooksAuthorsRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,5 +43,13 @@ public class AuthorsService {
         }
         authorsRepository.deleteById(id);
         return HttpStatus.OK;
+    }
+
+    public ResponseEntity<AuthorsDto> postAuthor(AuthorsDto body) {
+        Authors entity = authorsMapper.toEntity(body);
+        entity.setAuthorId(null);
+        Authors saved = authorsRepository.save(entity);
+        AuthorsDto dto = authorsMapper.toDto(saved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 }

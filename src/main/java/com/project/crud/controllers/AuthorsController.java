@@ -36,4 +36,9 @@ public class AuthorsController {
     public ResponseEntity<Void> deleteAuthor(@PathVariable Integer id){
         return ResponseEntity.status(authorsService.deleteAuthor(id)).build();
     }
+
+    @PostMapping("/")
+    public ResponseEntity<AuthorsDto> postAuthor(@RequestBody AuthorsDto body){
+        return authorsService.postAuthor(body);
+    }
 }
