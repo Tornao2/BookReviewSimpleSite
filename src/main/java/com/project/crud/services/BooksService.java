@@ -1,11 +1,13 @@
 package com.project.crud.services;
 
 import com.project.crud.dtos.BooksDto;
+import com.project.crud.entities.Books;
 import com.project.crud.mappers.BooksMapper;
 import com.project.crud.repositories.BooksAuthorsRepository;
 import com.project.crud.repositories.BooksGenresRepository;
 import com.project.crud.repositories.BooksRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,5 +48,16 @@ public class BooksService {
         }
         booksRepository.deleteById(isbn);
         return HttpStatus.OK;
+    }
+
+    public ResponseEntity<BooksDto> postBooks(BooksDto body) {
+        if (body.getIsbn().length() != 13){
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
+        }
+
+        Books entity = booksMapper.toEntity(body);
+        Books saved = booksRepository.save(entity);
+        BooksDto dto = booksMapper.toDto(saved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 }

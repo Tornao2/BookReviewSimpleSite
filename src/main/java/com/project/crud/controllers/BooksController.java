@@ -35,4 +35,9 @@ public class BooksController {
     public ResponseEntity<Void> deleteBook(@PathVariable String isbn){
         return ResponseEntity.status(booksService.deleteBook(isbn)).build();
     }
+
+    @PostMapping("/")
+    public ResponseEntity<BooksDto> postBook(@RequestBody BooksDto body){
+        return booksService.postBooks(body);
+    }
 }
