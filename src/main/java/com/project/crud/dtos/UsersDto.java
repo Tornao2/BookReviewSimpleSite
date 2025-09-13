@@ -9,5 +9,4 @@ import lombok.*;
 @Setter
 public class UsersDto {
     private String username;
-    private Integer readBooksNumber;
 }

@@ -35,4 +35,9 @@ public class BooksAuthorsController {
     public ResponseEntity<Void> deleteBooksAuthors(@PathVariable String isbn, @PathVariable Integer id){
         return ResponseEntity.status(booksAuthorsService.deleteBooksAuthors(isbn, id)).build();
     }
+
+    @PostMapping("/")
+    public ResponseEntity<BooksAuthorsDto> postBooksAuthors(@RequestBody BooksAuthorsDto body){
+        return booksAuthorsService.postBooksAuthors(body);
+    }
 }

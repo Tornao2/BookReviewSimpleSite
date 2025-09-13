@@ -14,6 +14,5 @@ public class Users {
     @Id
     private String username;
     private String password;
-    private Integer readBooksNumber;
     private Boolean isAdmin;
 }

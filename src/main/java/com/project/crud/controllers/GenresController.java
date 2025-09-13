@@ -35,4 +35,9 @@ public class GenresController {
     public ResponseEntity<Void> deleteGenre(@PathVariable String title){
         return ResponseEntity.status(genresService.deleteGenre(title)).build();
     }
+
+    @PostMapping("/")
+    public ResponseEntity<GenresDto> postGenre(@RequestBody GenresDto body){
+        return genresService.postGenre(body);
+    }
 }

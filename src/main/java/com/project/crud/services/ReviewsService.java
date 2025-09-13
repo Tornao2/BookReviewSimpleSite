@@ -1,12 +1,18 @@
 package com.project.crud.services;
 
 import com.project.crud.dtos.ReviewsDto;
+import com.project.crud.entities.Reviews;
 import com.project.crud.entities.embeddable.ReviewsId;
 import com.project.crud.mappers.ReviewsMapper;
+import com.project.crud.repositories.BooksRepository;
 import com.project.crud.repositories.ReviewsRepository;
+import com.project.crud.repositories.UsersRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -15,10 +21,14 @@ import java.util.stream.StreamSupport;
 public class ReviewsService {
     private final ReviewsRepository reviewsRepository;
     private final ReviewsMapper reviewsMapper;
+    private final BooksRepository booksRepository;
+    private final UsersRepository usersRepository;
 
-    public ReviewsService(ReviewsRepository reviewsRepository, ReviewsMapper reviewsMapper) {
+    public ReviewsService(ReviewsRepository reviewsRepository, ReviewsMapper reviewsMapper, BooksRepository booksRepository, UsersRepository usersRepository) {
         this.reviewsRepository = reviewsRepository;
         this.reviewsMapper = reviewsMapper;
+        this.booksRepository = booksRepository;
+        this.usersRepository = usersRepository;
     }
 
     public List<ReviewsDto> getAllReviews(){
@@ -47,5 +57,21 @@ public class ReviewsService {
         }
         reviewsRepository.deleteById(embId);
         return HttpStatus.OK;
+    }
+
+    public ResponseEntity<ReviewsDto> postReview(ReviewsDto body){
+        if(booksRepository.findById(body.getIsbn()).isEmpty() ||
+                usersRepository.findById(body.getUsername()).isEmpty()){
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
+        }
+        ReviewsId searched = new ReviewsId(body.getUsername(), body.getIsbn());
+        if(reviewsRepository.findById(searched).isPresent()){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
+        }
+        Reviews entity = reviewsMapper.toEntity(body);
+        entity.setChangeDate(Date.from(Instant.now()));
+        Reviews saved = reviewsRepository.save(entity);
+        ReviewsDto dto = reviewsMapper.toDto(saved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 }

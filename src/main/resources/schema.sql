@@ -9,7 +9,6 @@ DROP TABLE IF EXISTS Authors CASCADE;
 CREATE TABLE Users (
   username text PRIMARY KEY,
   password text,
-  readBooksNumber smallint,
   isAdmin boolean
 );
 

@@ -1,7 +1,7 @@
-Insert Into Users (username, password, readBooksNumber, isAdmin) Values
-    ('Tornao', 'Password', 2, false),
-    ('Liki', 'Example', 3, false),
-    ('Loki', '1234', 0, true);
+Insert Into Users (username, password, isAdmin) Values
+    ('Tornao', 'Password', false),
+    ('Liki', 'Example', false),
+    ('Loki', '1234', true);
 
 Insert into books values
 ('9781784871710', 'The Picture of Dorian Gray', 'Penguin Random House', 224, 'English', 2016,

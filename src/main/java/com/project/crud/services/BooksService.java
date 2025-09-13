@@ -54,7 +54,10 @@ public class BooksService {
         if (body.getIsbn().length() != 13){
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
         }
-
+        if(booksRepository.findById(body.getIsbn()).isPresent()){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body
+                    (booksMapper.toDto(booksRepository.findById(body.getIsbn()).get()));
+        }
         Books entity = booksMapper.toEntity(body);
         Books saved = booksRepository.save(entity);
         BooksDto dto = booksMapper.toDto(saved);

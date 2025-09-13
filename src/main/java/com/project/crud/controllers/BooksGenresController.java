@@ -32,7 +32,12 @@ public class BooksGenresController {
     }
 
     @DeleteMapping("/{isbn}/{title}")
-    public ResponseEntity<Void> deleteBooksAuthors(@PathVariable String isbn, @PathVariable String title){
+    public ResponseEntity<Void> deleteBooksGenres(@PathVariable String isbn, @PathVariable String title){
         return ResponseEntity.status(booksGenresService.deleteBooksGenres(isbn, title)).build();
+    }
+
+    @PostMapping("/")
+    public ResponseEntity<BooksGenresDto> postBooksGenres(@RequestBody BooksGenresDto body){
+        return booksGenresService.postBooksGenres(body);
     }
 }

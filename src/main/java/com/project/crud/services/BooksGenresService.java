@@ -1,10 +1,14 @@
 package com.project.crud.services;
 
 import com.project.crud.dtos.BooksGenresDto;
+import com.project.crud.entities.BooksGenres;
 import com.project.crud.entities.embeddable.BooksGenresId;
 import com.project.crud.mappers.BooksGenresMapper;
 import com.project.crud.repositories.BooksGenresRepository;
+import com.project.crud.repositories.BooksRepository;
+import com.project.crud.repositories.GenresRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +19,14 @@ import java.util.stream.StreamSupport;
 public class BooksGenresService {
     private final BooksGenresRepository booksGenresRepository;
     private final BooksGenresMapper booksGenresMapper;
+    private final BooksRepository booksRepository;
+    private final GenresRepository genresRepository;
 
-    public BooksGenresService(BooksGenresRepository booksGenresRepository, BooksGenresMapper booksGenresMapper) {
+    public BooksGenresService(BooksGenresRepository booksGenresRepository, BooksGenresMapper booksGenresMapper, BooksRepository booksRepository, GenresRepository genresRepository) {
         this.booksGenresRepository = booksGenresRepository;
         this.booksGenresMapper = booksGenresMapper;
+        this.booksRepository = booksRepository;
+        this.genresRepository = genresRepository;
     }
 
     public List<BooksGenresDto> getAllBooksGenres(){
@@ -43,5 +51,20 @@ public class BooksGenresService {
         }
         booksGenresRepository.deleteById(embId);
         return HttpStatus.OK;
+    }
+
+    public ResponseEntity<BooksGenresDto> postBooksGenres(BooksGenresDto body){
+        if(booksRepository.findById(body.getIsbn()).isEmpty() ||
+                genresRepository.findById(body.getTitle()).isEmpty()){
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
+        }
+        BooksGenresId searched = new BooksGenresId(body.getIsbn(), body.getTitle());
+        if(booksGenresRepository.findById(searched).isPresent()){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
+        }
+        BooksGenres entity = booksGenresMapper.toEntity(body);
+        BooksGenres saved = booksGenresRepository.save(entity);
+        BooksGenresDto dto = booksGenresMapper.toDto(saved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 }

@@ -47,4 +47,9 @@ public class ReviewsController {
     public ResponseEntity<Void> deleteReview(@PathVariable String username, @PathVariable String isbn){
         return ResponseEntity.status(reviewsService.deleteReview(username, isbn)).build();
     }
+
+    @PostMapping("/")
+    public ResponseEntity<ReviewsDto> postReview(@RequestBody ReviewsDto body){
+        return reviewsService.postReview(body);
+    }
 }

@@ -1,10 +1,12 @@
 package com.project.crud.services;
 
 import com.project.crud.dtos.GenresDto;
+import com.project.crud.entities.Genres;
 import com.project.crud.mappers.GenresMapper;
 import com.project.crud.repositories.BooksGenresRepository;
 import com.project.crud.repositories.GenresRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,5 +43,14 @@ public class GenresService {
         }
         genresRepository.deleteById(title);
         return HttpStatus.OK;
+    }
+
+    public ResponseEntity<GenresDto> postGenre(GenresDto body) {
+        if (genresRepository.existsById(body.getTitle())){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
+        }
+        Genres entity = genresMapper.toEntity(body);
+        genresRepository.save(entity);
+        return ResponseEntity.status(HttpStatus.CREATED).body(body);
     }
 }

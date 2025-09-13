@@ -35,4 +35,9 @@ public class UsersController {
     public ResponseEntity<Void> deleteUser(@PathVariable String username){
         return ResponseEntity.status(usersService.deleteUser(username)).build();
     }
+
+    @PostMapping("/{password}")
+    public ResponseEntity<UsersDto> postUsers(@RequestBody UsersDto body, @PathVariable String password){
+        return usersService.postUser(body, password);
+    }
 }

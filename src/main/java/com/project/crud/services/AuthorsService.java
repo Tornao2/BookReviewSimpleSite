@@ -46,6 +46,10 @@ public class AuthorsService {
     }
 
     public ResponseEntity<AuthorsDto> postAuthor(AuthorsDto body) {
+        if (authorsRepository.existsByNameAndYearOfBirthAndCountryOfBirth(body.getName(), body.getYearOfBirth(), body.getCountryOfBirth())){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body
+                    (authorsMapper.toDto(authorsRepository.findByNameAndYearOfBirthAndCountryOfBirth(body.getName(), body.getYearOfBirth(), body.getCountryOfBirth()).get()));
+        }
         Authors entity = authorsMapper.toEntity(body);
         entity.setAuthorId(null);
         Authors saved = authorsRepository.save(entity);

@@ -10,3 +10,5 @@ public class CrudApplication {
 		SpringApplication.run(CrudApplication.class, args);
 	}
 }
+
+//Todo: normalize the data so it follows some format(upper/lower case)
