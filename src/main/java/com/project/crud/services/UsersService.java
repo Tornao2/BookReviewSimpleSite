@@ -3,6 +3,7 @@ package com.project.crud.services;
 import com.project.crud.dtos.UsersDto;
 import com.project.crud.entities.Users;
 import com.project.crud.exceptionHandling.ForeignKeyFoundException;
+import com.project.crud.exceptionHandling.ResourceAlreadyExistsException;
 import com.project.crud.exceptionHandling.ResourceNotFoundException;
 import com.project.crud.mappers.UsersMapper;
 import com.project.crud.repositories.ReviewsRepository;
@@ -50,10 +51,10 @@ public class UsersService {
 
     public ResponseEntity<UsersDto> postUser(UsersDto body, String password) {
         if (usersRepository.existsById(body.getUsername())){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
+            throw new ResourceAlreadyExistsException("user", body.getUsername());
         }
         if (password.isEmpty()){
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+            throw new RuntimeException("To create a user you must submit a password in url");
         }
         Users entity = usersMapper.toEntity(body);
         entity.setPassword(password);

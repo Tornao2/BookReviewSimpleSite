@@ -34,8 +34,25 @@ public class GlobalExceptionHandler {
         returnMessage.put("Advice", "To delete this resource you need to remove the resources in the other table");
         return ResponseEntity.status(HttpStatus.CONFLICT).body(returnMessage);
     }
+    @ExceptionHandler(ResourceAlreadyExistsException.class)
+    public ResponseEntity<?> resourceAlreadyExists(ResourceAlreadyExistsException ex){
+        HashMap<String, String> returnMessage = new HashMap<>();
+        returnMessage.put("Error type", "Resource already exists");
+        returnMessage.put("Error message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(returnMessage);
+    }
+    @ExceptionHandler(ForeignKeyNotFoundException.class)
+    public ResponseEntity<?> NoForeignKeyExists(ForeignKeyNotFoundException ex){
+        HashMap<String, String> returnMessage = new HashMap<>();
+        returnMessage.put("Error type", "Foreign key is wrong");
+        returnMessage.put("Error message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(returnMessage);
+    }
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> other(Exception ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", ex.getMessage()));
+        HashMap<String, String> returnMessage = new HashMap<>();
+        returnMessage.put("Error type", "Unspecified error");
+        returnMessage.put("Error message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(returnMessage);
     }
 }

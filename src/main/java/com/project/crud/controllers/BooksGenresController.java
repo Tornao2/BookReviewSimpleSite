@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/booksGenres")
+@RequestMapping("/booksgenres")
 public class BooksGenresController {
     private final BooksGenresService booksGenresService;
 

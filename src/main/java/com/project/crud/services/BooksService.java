@@ -3,6 +3,7 @@ package com.project.crud.services;
 import com.project.crud.dtos.BooksDto;
 import com.project.crud.entities.Books;
 import com.project.crud.exceptionHandling.ForeignKeyFoundException;
+import com.project.crud.exceptionHandling.ResourceAlreadyExistsException;
 import com.project.crud.exceptionHandling.ResourceNotFoundException;
 import com.project.crud.mappers.BooksMapper;
 import com.project.crud.repositories.BooksAuthorsRepository;
@@ -63,11 +64,10 @@ public class BooksService {
 
     public ResponseEntity<BooksDto> postBooks(BooksDto body) {
         if (body.getIsbn().length() != 13){
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
+            throw new RuntimeException("Isbn of a book must be exactly 13 signs");
         }
         if(booksRepository.findById(body.getIsbn()).isPresent()){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body
-                    (booksMapper.toDto(booksRepository.findById(body.getIsbn()).get()));
+            throw new ResourceAlreadyExistsException("book", body.getIsbn());
         }
         Books entity = booksMapper.toEntity(body);
         Books saved = booksRepository.save(entity);

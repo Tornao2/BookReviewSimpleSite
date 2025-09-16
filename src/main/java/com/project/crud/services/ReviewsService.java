@@ -3,6 +3,8 @@ package com.project.crud.services;
 import com.project.crud.dtos.ReviewsDto;
 import com.project.crud.entities.Reviews;
 import com.project.crud.entities.embeddable.ReviewsId;
+import com.project.crud.exceptionHandling.ForeignKeyNotFoundException;
+import com.project.crud.exceptionHandling.ResourceAlreadyExistsException;
 import com.project.crud.exceptionHandling.ResourceNotFoundException;
 import com.project.crud.mappers.ReviewsMapper;
 import com.project.crud.repositories.BooksRepository;
@@ -62,13 +64,15 @@ public class ReviewsService {
     }
 
     public ResponseEntity<ReviewsDto> postReview(ReviewsDto body){
-        if(booksRepository.findById(body.getIsbn()).isEmpty() ||
-                usersRepository.findById(body.getUsername()).isEmpty()){
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
+        if(booksRepository.findById(body.getIsbn()).isEmpty()){
+            throw new ForeignKeyNotFoundException("review", body.getIsbn(), "books");
+        }
+        if(usersRepository.findById(body.getUsername()).isEmpty()){
+            throw new ForeignKeyNotFoundException("review", body.getUsername(), "users");
         }
         ReviewsId searched = new ReviewsId(body.getUsername(), body.getIsbn());
         if(reviewsRepository.findById(searched).isPresent()){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
+            throw new ResourceAlreadyExistsException("review", "isbn: " + body.getIsbn() + ", username: " + body.getUsername());
         }
         Reviews entity = reviewsMapper.toEntity(body);
         entity.setChangeDate(Date.from(Instant.now()));

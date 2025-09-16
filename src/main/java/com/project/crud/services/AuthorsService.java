@@ -3,6 +3,7 @@ package com.project.crud.services;
 import com.project.crud.dtos.AuthorsDto;
 import com.project.crud.entities.Authors;
 import com.project.crud.exceptionHandling.ForeignKeyFoundException;
+import com.project.crud.exceptionHandling.ResourceAlreadyExistsException;
 import com.project.crud.exceptionHandling.ResourceNotFoundException;
 import com.project.crud.mappers.AuthorsMapper;
 import com.project.crud.repositories.AuthorsRepository;
@@ -50,8 +51,7 @@ public class AuthorsService {
 
     public ResponseEntity<AuthorsDto> postAuthor(AuthorsDto body) {
         if (authorsRepository.existsByNameAndYearOfBirthAndCountryOfBirth(body.getName(), body.getYearOfBirth(), body.getCountryOfBirth())){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body
-                    (authorsMapper.toDto(authorsRepository.findByNameAndYearOfBirthAndCountryOfBirth(body.getName(), body.getYearOfBirth(), body.getCountryOfBirth()).get()));
+            throw new ResourceAlreadyExistsException("author", "combination of name, country of birth and year of birth");
         }
         Authors entity = authorsMapper.toEntity(body);
         entity.setAuthorId(null);

@@ -3,6 +3,7 @@ package com.project.crud.services;
 import com.project.crud.dtos.GenresDto;
 import com.project.crud.entities.Genres;
 import com.project.crud.exceptionHandling.ForeignKeyFoundException;
+import com.project.crud.exceptionHandling.ResourceAlreadyExistsException;
 import com.project.crud.exceptionHandling.ResourceNotFoundException;
 import com.project.crud.mappers.GenresMapper;
 import com.project.crud.repositories.BooksGenresRepository;
@@ -50,7 +51,7 @@ public class GenresService {
 
     public ResponseEntity<GenresDto> postGenre(GenresDto body) {
         if (genresRepository.existsById(body.getTitle())){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
+            throw new ResourceAlreadyExistsException("genre", body.getTitle());
         }
         Genres entity = genresMapper.toEntity(body);
         genresRepository.save(entity);

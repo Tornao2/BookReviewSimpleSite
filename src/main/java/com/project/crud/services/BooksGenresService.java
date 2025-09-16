@@ -3,6 +3,8 @@ package com.project.crud.services;
 import com.project.crud.dtos.BooksGenresDto;
 import com.project.crud.entities.BooksGenres;
 import com.project.crud.entities.embeddable.BooksGenresId;
+import com.project.crud.exceptionHandling.ForeignKeyNotFoundException;
+import com.project.crud.exceptionHandling.ResourceAlreadyExistsException;
 import com.project.crud.exceptionHandling.ResourceNotFoundException;
 import com.project.crud.mappers.BooksGenresMapper;
 import com.project.crud.repositories.BooksGenresRepository;
@@ -55,13 +57,15 @@ public class BooksGenresService {
     }
 
     public ResponseEntity<BooksGenresDto> postBooksGenres(BooksGenresDto body){
-        if(booksRepository.findById(body.getIsbn()).isEmpty() ||
-                genresRepository.findById(body.getTitle()).isEmpty()){
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
+        if(booksRepository.findById(body.getIsbn()).isEmpty()){
+            throw new ForeignKeyNotFoundException("BooksGenres", body.getIsbn(), "books");
+        }
+        if(genresRepository.findById(body.getTitle()).isEmpty()){
+            throw new ForeignKeyNotFoundException("BooksGenres", body.getTitle(), "genres");
         }
         BooksGenresId searched = new BooksGenresId(body.getIsbn(), body.getTitle());
         if(booksGenresRepository.findById(searched).isPresent()){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
+            throw new ResourceAlreadyExistsException("BooksGenres", "isbn: " + body.getIsbn() + ", genre: " + body.getTitle());
         }
         BooksGenres entity = booksGenresMapper.toEntity(body);
         BooksGenres saved = booksGenresRepository.save(entity);
