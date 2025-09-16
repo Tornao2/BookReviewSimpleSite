@@ -3,7 +3,6 @@ package com.project.crud.controllers;
 
 import com.project.crud.dtos.AuthorsDto;
 import com.project.crud.services.AuthorsService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,11 +24,7 @@ public class AuthorsController {
 
     @GetMapping("/{id}")
     public ResponseEntity<AuthorsDto> getAuthor(@PathVariable Integer id) {
-        AuthorsDto returnValue = authorsService.getAuthor(id);
-        if (returnValue == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        return ResponseEntity.ok(returnValue);
+        return ResponseEntity.ok(authorsService.getAuthor(id));
     }
 
     @DeleteMapping("/{id}")

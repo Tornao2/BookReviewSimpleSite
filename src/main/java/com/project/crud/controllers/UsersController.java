@@ -2,7 +2,6 @@ package com.project.crud.controllers;
 
 import com.project.crud.dtos.UsersDto;
 import com.project.crud.services.UsersService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,11 +23,7 @@ public class UsersController {
 
     @GetMapping("/{username}")
     public ResponseEntity<UsersDto> getUser(@PathVariable String username) {
-        UsersDto returnValue = usersService.getUser(username);
-        if (returnValue == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        return ResponseEntity.ok(returnValue);
+        return ResponseEntity.ok(usersService.getUser(username));
     }
 
     @DeleteMapping("/{username}")

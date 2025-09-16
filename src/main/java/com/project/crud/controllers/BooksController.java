@@ -2,7 +2,6 @@ package com.project.crud.controllers;
 
 import com.project.crud.dtos.BooksDto;
 import com.project.crud.services.BooksService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,11 +23,7 @@ public class BooksController {
 
     @GetMapping("/{isbn}")
     public ResponseEntity<BooksDto> getBook(@PathVariable String isbn) {
-        BooksDto returnValue = booksService.getBook(isbn);
-        if (returnValue == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        return ResponseEntity.ok(returnValue);
+        return ResponseEntity.ok(booksService.getBook(isbn));
     }
 
     @DeleteMapping("/{isbn}")

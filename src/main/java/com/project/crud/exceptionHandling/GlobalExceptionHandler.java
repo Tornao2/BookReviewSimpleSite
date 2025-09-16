@@ -13,7 +13,10 @@ import java.util.Map;
 public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<?> notFound(ResourceNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", ex.getMessage()));
+        HashMap<String, String> returnMessage = new HashMap<>();
+        returnMessage.put("Error type", "Resource not found");
+        returnMessage.put("Error message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(returnMessage);
     }
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> validation(MethodArgumentNotValidException ex) {

@@ -2,6 +2,7 @@ package com.project.crud.services;
 
 import com.project.crud.dtos.UsersDto;
 import com.project.crud.entities.Users;
+import com.project.crud.exceptionHandling.ResourceNotFoundException;
 import com.project.crud.mappers.UsersMapper;
 import com.project.crud.repositories.UsersRepository;
 import org.springframework.http.HttpStatus;
@@ -28,12 +29,12 @@ public class UsersService {
     }
 
     public UsersDto getUser(String username){
-        return usersMapper.toDto(usersRepository.findById(username).orElse(null));
+        return usersMapper.toDto(usersRepository.findById(username).orElseThrow(() -> new ResourceNotFoundException("user", username)));
     }
 
     public HttpStatus deleteUser(String username){
         if (usersRepository.findById(username).isEmpty()){
-            return HttpStatus.NOT_FOUND;
+            throw new ResourceNotFoundException("user", username);
         }
         usersRepository.deleteById(username);
         return HttpStatus.OK;

@@ -32,7 +32,7 @@ public class AuthorsService {
     }
 
     public AuthorsDto getAuthor(Integer id){
-        return authorsMapper.toDto(authorsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Author not found: " + id)));
+        return authorsMapper.toDto(authorsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("author", id.toString())));
     }
 
     public HttpStatus deleteAuthor(Integer id){
@@ -40,7 +40,7 @@ public class AuthorsService {
             return HttpStatus.CONFLICT;
         }
         if (!authorsRepository.existsById(id)){
-            throw new ResourceNotFoundException("Author not found: " + id);
+            throw new ResourceNotFoundException("author", id.toString());
         }
         authorsRepository.deleteById(id);
         return HttpStatus.OK;

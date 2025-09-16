@@ -3,7 +3,6 @@ package com.project.crud.controllers;
 import com.project.crud.dtos.ReviewsDto;
 import com.project.crud.entities.embeddable.ReviewsId;
 import com.project.crud.services.ReviewsService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,11 +25,7 @@ public class ReviewsController {
     @GetMapping("/both/{username}/{isbn}")
     public ResponseEntity<ReviewsDto> getAReview(@PathVariable String username, @PathVariable String isbn) {
         ReviewsId rev = new ReviewsId(username, isbn);
-        ReviewsDto returnValue = reviewsService.getReview(rev);
-        if (returnValue == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        return ResponseEntity.ok(returnValue);
+        return ResponseEntity.ok(reviewsService.getReview(rev));
     }
 
     @GetMapping("/username/{username}")

@@ -2,6 +2,7 @@ package com.project.crud.services;
 
 import com.project.crud.dtos.GenresDto;
 import com.project.crud.entities.Genres;
+import com.project.crud.exceptionHandling.ResourceNotFoundException;
 import com.project.crud.mappers.GenresMapper;
 import com.project.crud.repositories.BooksGenresRepository;
 import com.project.crud.repositories.GenresRepository;
@@ -31,7 +32,7 @@ public class GenresService {
     }
 
     public GenresDto getGenre(String title){
-        return genresMapper.toDto(genresRepository.findById(title).orElse(null));
+        return genresMapper.toDto(genresRepository.findById(title).orElseThrow(() -> new ResourceNotFoundException("genre", title)));
     }
 
     public HttpStatus deleteGenre(String title){
@@ -39,7 +40,7 @@ public class GenresService {
             return HttpStatus.CONFLICT;
         }
         if (!genresRepository.existsById(title)){
-            return HttpStatus.NOT_FOUND;
+            throw new ResourceNotFoundException("genre", title);
         }
         genresRepository.deleteById(title);
         return HttpStatus.OK;

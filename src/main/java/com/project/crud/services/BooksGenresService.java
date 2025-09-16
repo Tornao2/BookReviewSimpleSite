@@ -3,6 +3,7 @@ package com.project.crud.services;
 import com.project.crud.dtos.BooksGenresDto;
 import com.project.crud.entities.BooksGenres;
 import com.project.crud.entities.embeddable.BooksGenresId;
+import com.project.crud.exceptionHandling.ResourceNotFoundException;
 import com.project.crud.mappers.BooksGenresMapper;
 import com.project.crud.repositories.BooksGenresRepository;
 import com.project.crud.repositories.BooksRepository;
@@ -47,7 +48,7 @@ public class BooksGenresService {
     public HttpStatus deleteBooksGenres(String isbn, String title){
         BooksGenresId embId = new BooksGenresId(isbn, title);
         if (booksGenresRepository.findById(embId).isEmpty()){
-            return HttpStatus.NOT_FOUND;
+            throw new ResourceNotFoundException("BooksGenres", "isbn: " + isbn + ", title: " + title);
         }
         booksGenresRepository.deleteById(embId);
         return HttpStatus.OK;

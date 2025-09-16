@@ -3,6 +3,7 @@ package com.project.crud.services;
 import com.project.crud.dtos.ReviewsDto;
 import com.project.crud.entities.Reviews;
 import com.project.crud.entities.embeddable.ReviewsId;
+import com.project.crud.exceptionHandling.ResourceNotFoundException;
 import com.project.crud.mappers.ReviewsMapper;
 import com.project.crud.repositories.BooksRepository;
 import com.project.crud.repositories.ReviewsRepository;
@@ -47,13 +48,13 @@ public class ReviewsService {
     }
 
     public ReviewsDto getReview(ReviewsId id){
-        return reviewsMapper.toDto(reviewsRepository.findById(id).orElse(null));
+        return reviewsMapper.toDto(reviewsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("review", "username: " + id.getUsername() + ", isbn: " + id.getIsbn())));
     }
 
     public HttpStatus deleteReview(String username, String isbn){
         ReviewsId embId = new ReviewsId(username, isbn);
         if (reviewsRepository.findById(embId).isEmpty()){
-            return HttpStatus.NOT_FOUND;
+            throw new ResourceNotFoundException("review", "username: " + username + " ,isbn: " + isbn);
         }
         reviewsRepository.deleteById(embId);
         return HttpStatus.OK;

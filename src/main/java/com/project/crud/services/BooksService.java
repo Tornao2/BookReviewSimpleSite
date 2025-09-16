@@ -2,6 +2,7 @@ package com.project.crud.services;
 
 import com.project.crud.dtos.BooksDto;
 import com.project.crud.entities.Books;
+import com.project.crud.exceptionHandling.ResourceNotFoundException;
 import com.project.crud.mappers.BooksMapper;
 import com.project.crud.repositories.BooksAuthorsRepository;
 import com.project.crud.repositories.BooksGenresRepository;
@@ -35,7 +36,7 @@ public class BooksService {
     }
 
     public BooksDto getBook(String isbn){
-        return booksMapper.toDto(booksRepository.findById(isbn).orElse(null));
+        return booksMapper.toDto(booksRepository.findById(isbn).orElseThrow(() -> new ResourceNotFoundException("book", isbn)));
     }
 
     public HttpStatus deleteBook(String isbn){
@@ -44,7 +45,7 @@ public class BooksService {
             return HttpStatus.CONFLICT;
         }
         if (!booksRepository.existsById(isbn)){
-            return HttpStatus.NOT_FOUND;
+            throw new ResourceNotFoundException("book", isbn);
         }
         booksRepository.deleteById(isbn);
         return HttpStatus.OK;
