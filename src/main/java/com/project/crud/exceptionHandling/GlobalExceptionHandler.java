@@ -26,7 +26,14 @@ public class GlobalExceptionHandler {
         returnMessage.put("Error message", ("Not implemented the following call: " + (ex.getMessage().split(" "))[3]));
         return ResponseEntity.badRequest().body(returnMessage);
     }
-
+    @ExceptionHandler(ForeignKeyFoundException.class)
+    public ResponseEntity<?> foreignKeyFound(ForeignKeyFoundException ex){
+        HashMap<String, String> returnMessage = new HashMap<>();
+        returnMessage.put("Error type", "Parent key of resource being used in another table");
+        returnMessage.put("Error message", ex.getMessage());
+        returnMessage.put("Advice", "To delete this resource you need to remove the resources in the other table");
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(returnMessage);
+    }
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> other(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", ex.getMessage()));

@@ -2,6 +2,7 @@ package com.project.crud.services;
 
 import com.project.crud.dtos.AuthorsDto;
 import com.project.crud.entities.Authors;
+import com.project.crud.exceptionHandling.ForeignKeyFoundException;
 import com.project.crud.exceptionHandling.ResourceNotFoundException;
 import com.project.crud.mappers.AuthorsMapper;
 import com.project.crud.repositories.AuthorsRepository;
@@ -32,12 +33,13 @@ public class AuthorsService {
     }
 
     public AuthorsDto getAuthor(Integer id){
-        return authorsMapper.toDto(authorsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("author", id.toString())));
+        return authorsMapper.toDto(authorsRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("author", id.toString())));
     }
 
     public HttpStatus deleteAuthor(Integer id){
         if (!booksAuthorsRepository.findByIdAuthorId(id).isEmpty()){
-            return HttpStatus.CONFLICT;
+            throw new ForeignKeyFoundException("author", id.toString(), "BooksAuthors");
         }
         if (!authorsRepository.existsById(id)){
             throw new ResourceNotFoundException("author", id.toString());

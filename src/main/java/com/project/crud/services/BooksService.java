@@ -2,11 +2,13 @@ package com.project.crud.services;
 
 import com.project.crud.dtos.BooksDto;
 import com.project.crud.entities.Books;
+import com.project.crud.exceptionHandling.ForeignKeyFoundException;
 import com.project.crud.exceptionHandling.ResourceNotFoundException;
 import com.project.crud.mappers.BooksMapper;
 import com.project.crud.repositories.BooksAuthorsRepository;
 import com.project.crud.repositories.BooksGenresRepository;
 import com.project.crud.repositories.BooksRepository;
+import com.project.crud.repositories.ReviewsRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,13 +23,15 @@ public class BooksService {
     private final BooksMapper booksMapper;
     private final BooksAuthorsRepository booksAuthorsRepository;
     private final BooksGenresRepository booksGenresRepository;
+    private final ReviewsRepository reviewsRepository;
 
     public BooksService(BooksRepository booksRepository, BooksMapper booksMapper,
-                        BooksAuthorsRepository booksAuthorsRepository, BooksGenresRepository booksGenresRepository) {
+                        BooksAuthorsRepository booksAuthorsRepository, BooksGenresRepository booksGenresRepository, ReviewsRepository reviewsRepository) {
         this.booksRepository = booksRepository;
         this.booksMapper = booksMapper;
         this.booksAuthorsRepository = booksAuthorsRepository;
         this.booksGenresRepository = booksGenresRepository;
+        this.reviewsRepository = reviewsRepository;
     }
 
     public List<BooksDto> getAllBooks(){
@@ -36,13 +40,19 @@ public class BooksService {
     }
 
     public BooksDto getBook(String isbn){
-        return booksMapper.toDto(booksRepository.findById(isbn).orElseThrow(() -> new ResourceNotFoundException("book", isbn)));
+        return booksMapper.toDto(booksRepository.findById(isbn).orElseThrow(
+                () -> new ResourceNotFoundException("book", isbn)));
     }
 
     public HttpStatus deleteBook(String isbn){
-        if (!booksAuthorsRepository.findByIdIsbn(isbn).isEmpty() || !booksGenresRepository.findByIdIsbn(isbn).isEmpty()
-        ){
-            return HttpStatus.CONFLICT;
+        if (!booksAuthorsRepository.findByIdIsbn(isbn).isEmpty()){
+            throw new ForeignKeyFoundException("book", isbn, "BooksAuthors");
+        }
+        if (!booksGenresRepository.findByIdIsbn(isbn).isEmpty()) {
+            throw new ForeignKeyFoundException("book", isbn, "BooksGenres");
+        }
+        if (!reviewsRepository.findByIdIsbn(isbn).isEmpty()) {
+            throw new ForeignKeyFoundException("book", isbn, "Reviews");
         }
         if (!booksRepository.existsById(isbn)){
             throw new ResourceNotFoundException("book", isbn);

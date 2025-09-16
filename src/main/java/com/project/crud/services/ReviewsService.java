@@ -48,7 +48,8 @@ public class ReviewsService {
     }
 
     public ReviewsDto getReview(ReviewsId id){
-        return reviewsMapper.toDto(reviewsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("review", "username: " + id.getUsername() + ", isbn: " + id.getIsbn())));
+        return reviewsMapper.toDto(reviewsRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("review", "username: " + id.getUsername() + ", isbn: " + id.getIsbn())));
     }
 
     public HttpStatus deleteReview(String username, String isbn){
