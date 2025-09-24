@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="430bfb19-eff2-4a91-b83b-ac029b96bf36" name="Changes" comment="" />
+    <list default="true" id="430bfb19-eff2-4a91-b83b-ac029b96bf36" name="Changes" comment="made the project into 2 sides: backend and frontend explicitly" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,12 +19,12 @@
     &quot;assignee&quot;: &quot;Tornao2&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Tornao2/BookReviewSimpleSite&quot;,
-    &quot;accountId&quot;: &quot;f0304be9-9114-4266-9f4c-281e73f0cca2&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Tornao2/FullstackBookReviewSimpleSite.git",
+    "accountId": "f0304be9-9114-4266-9f4c-281e73f0cca2"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 0
@@ -41,6 +41,7 @@
     "Application.Frontend.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "onboarding.tips.debug.path": "C:/Users/Admin/Desktop/crud/frontend/src/main/java/com/project/crud/Main.java",
@@ -84,11 +85,30 @@
       <option name="presentableId" value="Default" />
       <updated>1758722888193</updated>
     </task>
+    <task id="LOCAL-00001" summary="made the project into 2 sides: backend and frontend explicitly">
+      <option name="closed" value="true" />
+      <created>1758724732468</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1758724732468</updated>
+    </task>
+    <task id="LOCAL-00002" summary="made the project into 2 sides: backend and frontend explicitly">
+      <option name="closed" value="true" />
+      <created>1758724830847</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1758724830847</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
       <path value="$PROJECT_DIR$/backend" />
     </ignored-roots>
+    <MESSAGE value="made the project into 2 sides: backend and frontend explicitly" />
+    <option name="LAST_COMMIT_MESSAGE" value="made the project into 2 sides: backend and frontend explicitly" />
   </component>
 </project>
