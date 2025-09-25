@@ -4,11 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="430bfb19-eff2-4a91-b83b-ac029b96bf36" name="Changes" comment="made the project into 2 sides: backend and frontend explicitly" />
+    <list default="true" id="430bfb19-eff2-4a91-b83b-ac029b96bf36" name="Changes" comment="Checking if it works correctly">
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/project/crud/CorsConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/java/com/example/demo/FrontendController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/main/java/com/project/crud/Main.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -19,12 +35,12 @@
     &quot;assignee&quot;: &quot;Tornao2&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Tornao2/FullstackBookReviewSimpleSite.git",
-    "accountId": "f0304be9-9114-4266-9f4c-281e73f0cca2"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Tornao2/FullstackBookReviewSimpleSite.git&quot;,
+    &quot;accountId&quot;: &quot;f0304be9-9114-4266-9f4c-281e73f0cca2&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 0
@@ -43,6 +59,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "onboarding.tips.debug.path": "C:/Users/Admin/Desktop/crud/frontend/src/main/java/com/project/crud/Main.java",
     "project.structure.last.edited": "Modules",
@@ -66,7 +83,7 @@
       </method>
     </configuration>
     <configuration name="Frontend" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="com.project.crud.Main" />
+      <option name="MAIN_CLASS_NAME" value="com.example.demo.DemoApplication" />
       <module name="frontend" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -101,7 +118,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758724830847</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Checking if it works correctly">
+      <option name="closed" value="true" />
+      <created>1758725100137</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1758725100137</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -109,6 +134,7 @@
       <path value="$PROJECT_DIR$/backend" />
     </ignored-roots>
     <MESSAGE value="made the project into 2 sides: backend and frontend explicitly" />
-    <option name="LAST_COMMIT_MESSAGE" value="made the project into 2 sides: backend and frontend explicitly" />
+    <MESSAGE value="Checking if it works correctly" />
+    <option name="LAST_COMMIT_MESSAGE" value="Checking if it works correctly" />
   </component>
 </project>
