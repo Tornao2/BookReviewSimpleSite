@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="top-belt">
+    <div class="top-belt">
+        <div class="brand">CRUD application</div>
+        <div class="belt-buttons">
+            <a th:href="@{/Authors}">Authors</a>
+            <a th:href="@{/Books}">Books</a>
+            <a th:href="@{/Reviews}">Reviews</a>
+            <a th:href="@{/Genres}">Genres</a>
+            <a th:href="@{/Users}">Users</a>
+            <a th:href="@{/BooksGenres}">BooksGenres</a>
+            <a th:href="@{/BooksAuthors}">BooksAuthors</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

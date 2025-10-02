@@ -9,4 +9,5 @@ import lombok.*;
 @Setter
 public class UsersDto {
     private String username;
+    private Boolean isAdmin;
 }

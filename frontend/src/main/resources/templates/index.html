@@ -1,24 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>My App</title>
+    <link rel="stylesheet" th:href="@{/css/shared.css}">
+    <title>Main site</title>
 </head>
 <body>
-<h1>Welcome!</h1>
-<p>This is the homepage rendered by Thymeleaf.</p>
-<ul id="authors-list">List of authors</ul>
-<script>
-    fetch('http://localhost:8081/api/authors/')
-      .then(res => res.json())
-      .then(authors => {
-          const ul = document.getElementById('authors-list');
-          authors.forEach(author => {
-              const li = document.createElement('li');
-              li.textContent = `${author.name} (${author.yearOfBirth}) - ${author.countryOfBirth}`;
-              ul.appendChild(li);
-          });
-      });
-</script>
+<div th:replace="fragments/navbar :: top-belt"></div>
+<div>
+    <h1 style ="text-align: center;">Choose a table that you want to modify by clicking the button on the nav-bar</h1>
+</div>
 </body>
 </html>
