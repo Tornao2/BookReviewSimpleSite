@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/shared.css}">
+  <title>Reviews</title>
+</head>
+<body>
+<div th:replace="fragments/navbar :: top-belt"></div>
+<table id = "reviewsTable">
+  <thead>
+  <tr>
+    <th>Username</th>
+    <th>ISBN</th>
+    <th>Review Description</th>
+    <th>Number of stars</th>
+    <th>Last time the review has changed</th>
+  </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+<script>
+  fetch('http://localhost:8081/api/reviews/')
+    .then(res => res.json())
+    .then(reviews => {
+        const tbody = document.querySelector('#reviewsTable tbody');
+        reviews.forEach(review => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${review.username}</td>
+              <td>${review.isbn}</td>
+              <td>${review.description}</td>
+              <td>${review.stars}</td>
+              <td>${review.changeDate}</td>`;
+            tbody.appendChild(tr);
+        });
+    });
+</script>
+</body>
+</html>

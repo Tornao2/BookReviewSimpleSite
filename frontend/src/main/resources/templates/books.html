@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/shared.css}">
+  <title>Books</title>
+</head>
+<body>
+<div th:replace="fragments/navbar :: top-belt"></div>
+<table id = "booksTable">
+  <thead>
+  <tr>
+    <th>ISBN</th>
+    <th>Book title</th>
+    <th>Name of publisher</th>
+    <th>Number of pages</th>
+    <th>Language</th>
+    <th>Year of release</th>
+    <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  </tbody>
+</table>
+<script>
+  fetch('http://localhost:8081/api/books/')
+    .then(res => res.json())
+    .then(books => {
+        const tbody = document.querySelector('#booksTable tbody');
+        books.forEach(book => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${book.isbn}</td>
+              <td>${book.bookTitle}</td>
+              <td>${book.publisherName}</td>
+              <td>${book.pageNumber}</td>
+              <td>${book.language}</td>
+              <td>${book.yearOfRelease}</td>
+              <td>${book.description}</td>`;
+            tbody.appendChild(tr);
+        });
+    });
+</script>
+</body>
+</html>

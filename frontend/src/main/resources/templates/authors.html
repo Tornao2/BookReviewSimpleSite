@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/shared.css}">
+  <title>Authors</title>
+</head>
+<body>
+<div th:replace="fragments/navbar :: top-belt"></div>
+<table id = "authorsTable">
+  <thead>
+  <tr>
+    <th>AuthorId</th>
+    <th>Name</th>
+    <th>Year of birth</th>
+    <th>Country of birth</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  </tbody>
+</table>
+<script>
+  fetch('http://localhost:8081/api/authors/')
+    .then(res => res.json())
+    .then(authors => {
+        const tbody = document.querySelector('#authorsTable tbody');
+        authors.forEach(author => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${author.authorId}</td>
+              <td>${author.name}</td>
+              <td>${author.yearOfBirth}</td>
+              <td>${author.countryOfBirth}</td>`;
+            tbody.appendChild(tr);
+        });
+    });
+</script>
+</body>
+</html>
